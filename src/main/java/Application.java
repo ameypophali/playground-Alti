@@ -3,7 +3,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan("playground.*")
+@ComponentScan("playground.*,com.altemetric.controller")
 public class Application {
 	
 	public static void main(String[] args) {
