@@ -75,7 +75,20 @@ public class Station {
         return longitude;
     }
 
-    public void setLongitude(double longitude) {
+    public Station(String name, int id, int emptySlots, int freeBikes, String stationId, double latitude,
+			double longitude, Point point) {
+		super();
+		this.name = name;
+		this.id = id;
+		this.emptySlots = emptySlots;
+		this.freeBikes = freeBikes;
+		this.stationId = stationId;
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.point = point;
+	}
+
+	public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 

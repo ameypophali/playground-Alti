@@ -8,7 +8,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -67,12 +66,10 @@ public class BikeService implements IBikeService{
 		return stations;
 	}
 
-
 	@Override
 	public String getResponse(List<Station> stations,String type) {
 		List<ResponseResult> responseResult = new ArrayList<>();
 		ObjectMapper mapper = new ObjectMapper();
-		//mapper.writeValueAsString
 		stations.forEach(station->{
 			ResponseResult result;
 			if(type.equals("dropOff")) {

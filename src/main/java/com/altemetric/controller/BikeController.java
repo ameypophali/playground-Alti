@@ -33,11 +33,6 @@ public class BikeController {
 	       Network response = mapper.readValue(result, Network.class);
 	       Point requestedPoint = new Point(Double.parseDouble(latitude),Double.parseDouble(longitude));
 	       List<Station> outputStation = bikeService.getStationsNearBy(requestedPoint, response.getNetwork().getStationList(),type);
-	       /*	       if(type.equalsIgnoreCase("pickOff")) {
-	    	   outputStation = bikeService.sortStationByFreeBikes(outputStation);
-	       }else if(type.equalsIgnoreCase("dropOff")) {
-	    	   outputStation = bikeService.sortStationByFreeSolts(outputStation);
-	       }*/
 	       result = bikeService.getResponse(outputStation, type);
 	       return result;
 	   	}catch(Exception exp) {
