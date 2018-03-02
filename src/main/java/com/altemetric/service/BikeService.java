@@ -1,8 +1,11 @@
 package com.altemetric.service;
 
+import com.altemetric.entity.DoubleComparator;
 import com.altemetric.entity.Point;
 import com.altemetric.entity.ResponseResult;
 import com.altemetric.entity.Station;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -33,6 +36,7 @@ public class BikeService implements IBikeService{
 	
     public List<Station> getStationsNearBy(Point point, List<Station> allstations,String type) {
         List<Station> nearStation = new ArrayList<Station>();
+        Map<Double, Station> sortedMap = new TreeMap<>(new DoubleComparator());
         final int distanceAllowed = 3;
         if(point==null) return nearStation;
         for(Station current : allstations){
@@ -42,15 +46,13 @@ public class BikeService implements IBikeService{
         		continue;
         	}
         	
-            double distance = getDistance(point,current.getPoint());
-            Map<Double, Station> stationMap = new TreeMap<Double, Station>(new Comparator<Double>(d1,d2) {
-            	return Double.compare(d2, d1);
-            });
-            if(distance<distanceAllowed){
-                nearStation.add(current);
+            double distance =  getDistance(point,current.getPoint());
+            if(distance<distanceAllowed){                
+            	sortedMap.put(distance,current);
             }
         }
-        return nearStation;
+        
+        return new ArrayList<Station>(sortedMap.values());
     }
 
 	@Override
@@ -67,13 +69,29 @@ public class BikeService implements IBikeService{
 
 
 	@Override
-	public String getResponse(List<Station> stations) {
+	public String getResponse(List<Station> stations,String type) {
 		List<ResponseResult> responseResult = new ArrayList<>();
-		/*stations.forEach(stations->{
-			
-			
-		});*/
-		return null;
+		ObjectMapper mapper = new ObjectMapper();
+		//mapper.writeValueAsString
+		stations.forEach(station->{
+			ResponseResult result;
+			if(type.equals("dropOff")) {
+				result = new ResponseResult(station, station.getEmptySlots());
+			}else {
+				result = new ResponseResult(station, station.getFreeBikes());
+			}
+			responseResult.add(result);
+		});
+		if(responseResult.isEmpty()) {
+			return "";
+		}else {
+			try {
+				return mapper.writeValueAsString(responseResult);
+			} catch (JsonProcessingException e) {
+				e.printStackTrace();
+				return "";
+			}
+		}
 	}
 
 

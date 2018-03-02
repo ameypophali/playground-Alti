@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Station {
-	@JsonIgnore
+	@JsonProperty("name")
     private String name;
     @JsonIgnore
     private int id;
