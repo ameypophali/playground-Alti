@@ -1,4 +1,4 @@
-package Altimetrik_Playground.Altimetrik;
+package playground.entity;
 
 public class Point {
 	double latitude;
