@@ -20,8 +20,9 @@ public class BikeController {
 	    return result;
 	}
 	
+	@RequestMapping("/getTest")
 	public String testController() {
-		
+		return "test";
 	}
 
 }
