@@ -1,15 +1,33 @@
-package com.altemetrix.entity;
+package com.altemetric.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Station {
+	@JsonIgnore
     private String name;
+    @JsonIgnore
     private int id;
+    @JsonProperty("empty_slots")
     private int emptySlots;
+    @JsonProperty("free_bikes")
     private int freeBikes;
-    private int stationId;
+    @JsonProperty("id")
+    private String stationId;
+    @JsonProperty("latitude")
     private double latitude;
+    @JsonProperty("longitude")
     private double longitude;
+    @JsonIgnore
+    private Point point;
 
-    public Station() {
+    public Point getPoint() {
+		return new Point(this.latitude,this.longitude);
+	}
+
+	public Station() {
     }
 
     public String getName() {
@@ -44,13 +62,6 @@ public class Station {
         this.freeBikes = freeBikes;
     }
 
-    public int getStationId() {
-        return stationId;
-    }
-
-    public void setStationId(int stationId) {
-        this.stationId = stationId;
-    }
 
     public double getLatitude() {
         return latitude;
@@ -67,4 +78,12 @@ public class Station {
     public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
+
+	public String getStationId() {
+		return stationId;
+	}
+
+	public void setStationId(String stationId) {
+		this.stationId = stationId;
+	}
 }

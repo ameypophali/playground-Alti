@@ -1,4 +1,4 @@
-package com.altemetrix.entity;
+package com.altemetric.entity;
 
 public class Point {
     double latitude;
@@ -11,4 +11,10 @@ public class Point {
     public double getLongitude() {
         return longitude;
     }
+
+	public Point(double latitude, double longitude) {
+		super();
+		this.latitude = latitude;
+		this.longitude = longitude;
+	}
 }
